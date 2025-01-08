@@ -19,23 +19,34 @@ Given the above, please complete the following tasks and answer the following qu
 #### Questions to Answer
 Please provide answers to these questions using markdown notation and place them in the `\0-Warmup` directory in your git repository:
 
+---
+
 1. Select with an `x` the platform you will be using for your course deliverables:
 
     - [ ] drexel's tux cluster
     - [ ] WSL on Windows
     - [ ] Orbstack on MacOs
-    - [ ] VMWare Fusion
+    - [x] VMWare Fusion
     - [ ] Somthing else (put name here)
+
+---
 
 2. I have installed my virtual machine, tested it, feel comfortable using it, and validated that the required software is installed:
 
     - [ ] YES
     - [ ] N/A - I plan to use tux
-    - [ ] NO - Not Yet
+    - [x] NO - Not Yet
 
+---
 
 3. Please provide a link to the repository you are using for this class.
+https://github.com/EmilBero/CS503-SysProg.git
+
+---
 
 4. Briefly describe what you want to get out of this class.
-
+I'd like to get a better understanding of how linux systems work & I would like to familiarize myself with the use of linux and VMs.
+---
+   
 5. Briefly describe any concerns you might be having with being successful in this class (if any).
+Currently, my main concern is setting up and testing the virtual machine to ensure all required tools are properly installed. I will work on this as soon as possible.
