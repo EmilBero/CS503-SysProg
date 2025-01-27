@@ -16,7 +16,6 @@ int  count_words(char *, int, int);
 void reverse_string(char *buff, int str_len);
 int print_words(char *buff, int str_len);
 
-
 int setup_buff(char *buff, char *user_str, int len){
     //TODO: #4:  Implement the setup buff as per the directions
     char *src = user_str;
@@ -114,6 +113,18 @@ void reverse_string(char *buff, int str_len) {
         start++;
         end--;
     }
+
+    //TEST: Ensure dots are at the end of the buffer
+    int j = 0;
+    for (int i = 0; i < BUFFER_SZ; i++) {
+        if (*(buff + i) != '.') {
+            *(buff + j++) = *(buff + i);
+        }
+    }
+    while (j < BUFFER_SZ) {
+        *(buff + j++) = '.';
+    }
+
 }
 
 // Print Words along with length
@@ -146,6 +157,10 @@ int print_words(char *buff, int str_len) {
     printf("\nNumber of words returned: %d\n", word_count);
     return word_count;
 }
+
+
+
+
 
 int main(int argc, char *argv[]){
 
@@ -206,7 +221,7 @@ int main(int argc, char *argv[]){
     user_str_len = setup_buff(buff, input_string, BUFFER_SZ);     //see todos
     if (user_str_len < 0){
         printf("Error setting up buffer, error = %d", user_str_len);
-//        free(buff);
+        free(buff);
 	exit(2);
     }
 
