@@ -1,19 +1,19 @@
 1. How does the remote client determine when a command's output is fully received from the server, and what techniques can be used to handle partial reads or ensure complete message transmission?
 
-_answer here_
+The remote client determines when a commnd is fully received by waiting for a special marker that signals the end of the commands output. In our case, the server appends a unique end-of-transmission character (like RDSH_EOF_CHAR) to the output. The client keeps calling recv()in a loop until it sees that marker. Other techniques include sending the length of the message first (so the client knows how many bytes to expect) or using a delimiter that is unlikely to appear in the actual output. These methods help handle partial reads and ensure the entire message is received before processing it.
 
 2. This week's lecture on TCP explains that it is a reliable stream protocol rather than a message-oriented one. Since TCP does not preserve message boundaries, how should a networked shell protocol define and detect the beginning and end of a command sent over a TCP connection? What challenges arise if this is not handled correctly?
 
-_answer here_
+A networked shell protocol should clearly define a message boundary usually by using a special delimiter or by sending a length prefix before the actual command. In our implementation, we use a null byte at the end of the command from the client and a specific EOF character (RDSH_EOF_CHAR) at the end of the server's response. If this isnt handled correctly, the receiver might get part of one message combined with part of another or stop reading too early, leading to incomplete commands or mixed-up data. This can cause errors or even crashes.
 
 3. Describe the general differences between stateful and stateless protocols.
 
-_answer here_
+Stateful protocols maintain information about each connection or session. For example, TCP is stateful because it keeps track of the connection, sequence numbers, and other details. This allows for more complex interactions but uses more resources. Stateless protocols, on the other hand, dont store any session information between requests. Each request is treated as an independent transaction, like in basic HTTP. Stateless protocols are easier to scale because the server doesnt have to remember previous interactions, but they might require extra work to handle things like authentication or session management.
 
 4. Our lecture this week stated that UDP is "unreliable". If that is the case, why would we ever use it?
 
-_answer here_
+Even though UDP is unreliable (it doesnt guarantee delivery, order, or error checking), it has some big advantages like: its faster and has lower overhead because it doesnt set up a connection or perform extensive error checking. This makes it ideal for applications like streaming video, online gaming, or real time communications where speed is more important than perfect reliability. Additionally, UDP supports multicast, which is useful for certain applications. In short, sometimes the speed and simplicity of UDP outweigh the need for guaranteed delivery.
 
 5. What interface/abstraction is provided by the operating system to enable applications to use network communications?
 
-_answer here_
+The operating system provides the sockets API (often referred to as Berkeley sockets on Unix/Linux or Winsock on Windows) as the abstraction for network communications. This API lets various applications create, configure, and use network connections for sending and receiving data using protocols like TCP and UDP. It essentially provides a standard set of functions like socket(), bind(), listen(), connect(), send(), and recv() to handle network communication.
