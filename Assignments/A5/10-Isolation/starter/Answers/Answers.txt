@@ -1,0 +1,63 @@
+Emil Bero
+
+Part 1.
+- See Screenshot 'Part1'
+
+
+Part2.
+- See Screenshot 'Part2'
+
+- The UID in the new user namespace starts at 65534 then becomes 0.
+- There are a lot of capabilities listed including: 
+    cap_chown,cap_dac_override,cap_dac_read_search,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,
+    cap_linux_immutable,cap_net_bind_service,cap_net_broadcast,cap_net_admin,cap_net_raw,cap_ipc_lock,cap_ipc_owner,
+    cap_sys_module,cap_sys_rawio,cap_sys_chroot,cap_sys_ptrace,cap_sys_pacct,cap_sys_admin,cap_sys_boot,cap_sys_nice,
+    cap_sys_resource,cap_sys_time,cap_sys_tty_config,cap_mknod,cap_lease,cap_audit_write,cap_audit_control,cap_setfcap,
+    cap_mac_override,cap_mac_admin,cap_syslog,cap_wake_alarm,cap_block_suspend,cap_audit_read,cap_perfmon,cap_bpf,
+    cap_checkpoint_restore
+- The UID mapping remaps the original UID to a different UID inside the namespace. In this case the parent process runs
+as UID 1000 on the host, the child initially runs as UID 65534 but then through the mapping the UID is changed to 0 
+within the namespace itself.
+
+
+Part3.
+- See Screenshot 'Part3'
+
+Part4.
+- See Screenshot 'Part4'
+
+Part5.
+- See Screenshot 'Part5'
+
+
+
+1. Linux user namespaces allow you to create isolated environments where processes can run as if they have root 
+privileges, even if they don't have them on the host system. This 'isolation' is done by remapping the user and
+or group IDs (UID, GID) so the process seems like its running as root inside the namespace.
+
+2. Check Screenshots Attached.
+
+3. 
+    - User namespaces remap your user ID so that even if you’re a normal user on the host, you appear as root 
+    (UID 0) inside the namespace.
+
+    - These mappings translate your host user and group IDs to different values in the namespace. That way, even
+    if you act as root inside the namespace you remain unprivileged on the host which keeps the system safe.
+
+    - Even with root like privileges inside the namespace, you can’t perform some actions like mounting file
+    systems or changing network settings that could affect the host system
+
+    - Containers use user namespaces so that applications can run as root internally. This isolation allows them
+    to work with more privileges without risking the security of the host system.
+
+    - User namespaces help improve security by isolating processes, but if the UID mappings are not set
+    correctly, there is a risk that a process might gain more access than intended
+
+    - Other types of namespaces can change all system settings, so they are restricted
+    to privileged users to avoid potential security risks
+
+4. Throughout this assignment i learnt that user namespaces let processes run as root in a safe separate area 
+while remaining unprivileged on the main system. I also saw how UID/GID mapping works and why its important for 
+containers. Although some operations were restricted, it still helped me better understand Linux security 
+and containerization. In terms of setup challenges, I needed to upgrade from WSL1 to WSL2 which required me to
+turn on virtualization of my CPU in my motherboard's bios.
